@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>
+    Album :: <strong>{{ action }}</strong>
+  </h1>
+  <div mat-dialog-content>
+    <div class="modal-content">
+      <div *ngIf="action != 'Delete'; else deleteTemplate">
+        <p>
+          <mat-form-field class="fiel-form" appearance="outline">
+            <mat-label>Album Title</mat-label>
+            <input matInput [(ngModel)]="local_data.title"/>
+            <mat-icon matSuffix>adjust</mat-icon>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="fiel-form" appearance="outline">
+            <mat-label>Goup Name</mat-label>
+            <input matInput [(ngModel)]="local_data.groupName"/>
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="fiel-form" appearance="outline">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [(ngModel)]="local_data.releaseDate"  [matDatepickerFilter]="myFilter " [matDatepicker]="picker">
+            <mat-hint>MM-DD-YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </p>
+      </div>
+      <ng-template #deleteTemplate>
+        <p class="confirmation-text">
+          Are you sure you want to delete <b>{{ local_data.name }}</b
+        >?
+        </p>
+      </ng-template>
+    </div>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button class="action-button" (click)="doAction()">
+      {{ action }}
+    </button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">
+      Cancel
+    </button>
+  </div>
+  

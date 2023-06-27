@@ -1,0 +1,102 @@
+<h1 mat-dialog-title>
+   <strong>{{ action }}</strong> new song
+  </h1>
+  <div mat-dialog-content>
+    <div class="modal-content">
+      <div *ngIf="action != 'Delete'; else deleteTemplate">
+        <p>
+          <mat-form-field class="fiel-form" appearance="outline">
+            <mat-label>Song Title</mat-label>
+            <input matInput [(ngModel)]="local_data.title"/>
+            <mat-icon matSuffix>adjust</mat-icon>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="fiel-form" appearance="outline">
+            <mat-label>Song Artist</mat-label>
+            <input matInput [(ngModel)]="local_data.artist"/>
+            <mat-icon matSuffix>adjust</mat-icon>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="fiel-form2" appearance="outline">
+            <mat-label>Albums</mat-label>
+            <mat-select [formControl]="albumsFormControl">
+              <mat-option
+                *ngFor="let album of albumList"
+                [value]="album.id">{{ album.title }}</mat-option>
+            </mat-select>
+          </mat-form-field>     
+          <mat-form-field class="fiel-form2" appearance="outline">
+            <mat-label>Categories</mat-label>
+            <mat-select [formControl]="categoriesFormControl">
+              <mat-option
+                *ngFor="let category of categoryList"
+                [value]="category.id">{{ category.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="fiel-form" appearance="outline">
+            <mat-label>Entity</mat-label>
+            <mat-select [formControl]="entitysFormControl" multiple>
+              <mat-select-trigger>
+                {{entitysFormControl.value?.[0] || ''}}
+                <span
+                  *ngIf="(entitysFormControl.value?.length || 0) > 1"
+                  class="example-additional-selection">
+                  (+{{ (entitysFormControl.value?.length || 0) - 1 }}
+                  {{ entitysFormControl.value?.length === 2 ? 'other' : 'others' }})
+                </span>
+              </mat-select-trigger>
+              <mat-option
+                *ngFor="let entityType of entityList"
+                [value]="entityType.id"
+              >{{ entityType.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="fiel-form" appearance="outline">
+            <mat-label>Instrument</mat-label>
+            <mat-select [formControl]="instrumentsFormControl" multiple>
+              <mat-select-trigger>
+                {{instrumentsFormControl.value?.[0] || ''}}
+                <span
+                  *ngIf="(instrumentsFormControl.value?.length || 0) > 1"
+                  class="example-additional-selection">
+                  (+{{ (instrumentsFormControl.value?.length || 0) - 1 }}
+                  {{ instrumentsFormControl.value?.length === 2 ? 'other' : 'others' }})
+                </span>
+              </mat-select-trigger>
+              <mat-option
+                *ngFor="let instrument of instrumentList"
+                [value]="instrument.id"
+              >{{ instrument.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </p>
+      </div>
+      <ng-template #deleteTemplate>
+        <p class="confirmation-text">
+          Are you sure you want to delete <b>{{ local_data.title }}</b
+          >?
+        </p>
+      </ng-template>
+      <ng-template #showTemplate>
+        <p class="confirmation-text">
+          Are you sure you want to delete <b>{{ local_data.title }}</b
+          >?
+        </p>
+      </ng-template>
+    </div>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button class="action-button" (click)="doAction()">
+      {{ action }}
+    </button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">
+      Cancel
+    </button>
+  </div>
+  

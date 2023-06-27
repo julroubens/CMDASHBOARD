@@ -1,0 +1,65 @@
+<h1 mat-dialog-title>
+  Entity :: <strong>{{ action }}</strong>
+</h1>
+<div mat-dialog-content>
+  <div class="modal-content">
+    <div *ngIf="action != 'Delete'; else deleteTemplate">
+      <mat-form-field class="fiel-form" appearance="outline">
+        <mat-label>Entity name</mat-label>
+        <input
+          matInput
+          [(ngModel)]="local_data.name"/>
+      </mat-form-field>
+      <mat-form-field class="fiel-form" appearance="outline">
+        <mat-label>Entity Type</mat-label>
+        <mat-select [formControl]="entityTypes" multiple>
+          <mat-select-trigger>
+            {{entityTypes.value?.[0] || ''}}
+            <span
+              *ngIf="(entityTypes.value?.length || 0) > 1"
+              class="example-additional-selection">
+              (+{{ (entityTypes.value?.length || 0) - 1 }}
+              {{ entityTypes.value?.length === 2 ? 'other' : 'others' }})
+            </span>
+          </mat-select-trigger>
+          <mat-option
+            *ngFor="let entityType of entityTypeList"
+            [value]="entityType.id"
+          >{{ entityType.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="fiel-form" appearance="outline">
+        <mat-label>Instrument</mat-label>
+        <mat-select [formControl]="instruments" multiple>
+          <mat-select-trigger>
+            {{instruments.value?.[0] || ''}}
+            <span
+              *ngIf="(instruments.value?.length || 0) > 1"
+              class="example-additional-selection">
+              (+{{ (instruments.value?.length || 0) - 1 }}
+              {{ instruments.value?.length === 2 ? 'other' : 'others' }})
+            </span>
+          </mat-select-trigger>
+          <mat-option
+            *ngFor="let instrument of instrumentList"
+            [value]="instrument.id"
+          >{{ instrument.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <ng-template #deleteTemplate>
+      <p class="confirmation-text">
+        Are you sure you want to delete <b>{{ local_data.name }}</b
+      >?
+      </p>
+    </ng-template>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button class="action-button" (click)="doAction()">
+    {{ action }}
+  </button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">
+    Cancel
+  </button>
+</div>
