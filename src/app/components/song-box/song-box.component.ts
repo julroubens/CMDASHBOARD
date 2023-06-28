@@ -33,7 +33,13 @@ export class SongBoxComponent implements OnInit {
   categoryList: Category[] = [];
 
   instrumentData: any;
-  typeData: any;
+  typeData: any; 
+
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6;
+  };
 
   constructor(
               public dialogRef: MatDialogRef<SongComponent>,
@@ -66,7 +72,21 @@ export class SongBoxComponent implements OnInit {
   }
 
   doAction() {
-    this.dialogRef.close({ event: this.action, data: this.local_data });
+    const selectedInstruments: number[] = this.instrumentsFormControl.value as number[];
+    const selectedEntitys: number[] = this.entitysFormControl.value as number[];
+
+    const selectedCategory: number = this.categoriesFormControl.value as unknown as number;
+    const selectedAlbum : number = this.albumsFormControl.value as unknown as number;
+
+    
+    this.dialogRef.close({ 
+      event: this.action, 
+      data: this.local_data,
+      category : selectedCategory,
+      album: selectedAlbum,
+      instruments: selectedInstruments,
+      entitys: selectedEntitys
+     });
   }
 
   closeDialog() {

@@ -10,6 +10,7 @@ import { AlbumService } from 'src/app/services/album.service';
 import { Observable, combineLatest, map, of } from 'rxjs';
 import { Album } from 'src/app/model/album';
 import { CategoryService } from 'src/app/services/category.service';
+import { Instrument } from 'src/app/model/instrument';
 
 
 @Component({
@@ -50,7 +51,6 @@ export class SongComponent implements OnInit, AfterViewInit {
 
           // geting album datails
           const albumIds = data.map(song => song.album);
-
           const albumTitleObservables = albumIds.map(albumId => this.getAlbumTitle(albumId));
           
           this.albumDetails = combineLatest(albumTitleObservables).pipe(
@@ -94,7 +94,6 @@ export class SongComponent implements OnInit, AfterViewInit {
   }
 
   getAlbumTitle(albumId: any): Observable<string> {
-    console.log("Hallo ID album :" + albumId)
     const albumTitle = this.albumService.getById(albumId).pipe(
       map(album => album ? album.title : '')
     );
@@ -102,19 +101,11 @@ export class SongComponent implements OnInit, AfterViewInit {
   }
 
   getCategoryName(categoryId: any): Observable<string> {
-    console.log("Hallo ID album :" + categoryId)
     const categoryName = this.categoryService.getById(categoryId).pipe(
       map(category => category ? category.name : '')
     );
     return categoryName;
   }
-
-  // getAlbumTitle(albumId: number): Observable<string>{
-  //   this.albumDetails = this.albumService.getById(albumId); // Replace with your actual method to fetch album details
-  //   return this.albumDetails.pipe(
-  //     map(album => album ? album.title : '')
-  //   );
-  // }
 
   openDialog(action: any, obj: { action: any; event: any }) {
     obj.action = action;
@@ -125,7 +116,11 @@ export class SongComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result.event === 'Add') {
-        this.addRowData(result.navbarData);
+        this.addRowData(result.navbarData, 
+                        result.category, 
+                        result.album, 
+                        result.instruments, 
+                        result.entityType);
       } else if (result.event === 'Update') {
         this.updateRowData(result.data);
       } else if (result.event === 'Delete') {
@@ -134,12 +129,13 @@ export class SongComponent implements OnInit, AfterViewInit {
     });
   }
 
-  addRowData(row_obj: any) {
+  addRowData(row_obj: any, category: any, album: any, selectedInstruments: any, selectedTypes: any) {
     var d = new Date();
+    console.log("CATEGORY SELECTED : "+category + " ALBUM SELECTED :"+ album);
 
     // let selectedInstrument: number[] = [];
     // if (selectedInstruments.value && selectedInstruments.value.length > 0) {
-    //   selectedInstruments = selectedInstruments.value.map(
+    //   selectedInstrument = selectedInstruments.value.map(
     //     (instrument: Instrument) => instrument.id
     //   );
     // }
@@ -178,13 +174,6 @@ export class SongComponent implements OnInit, AfterViewInit {
         console.error('Error adding new item:', error);
       }
     );
-    // row_obj2.forEach(instruId => {
-    //   const newItem: Entity = {
-    //     entity_id: 1555888555,
-    //     instrument_id: instruId,
-
-    //   };
-    // });
   }
 
   updateRowData(row_obj: Song) {

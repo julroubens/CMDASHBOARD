@@ -76,6 +76,15 @@
             </mat-select>
           </mat-form-field>
         </p>
+        <p>
+          <mat-form-field class="fiel-form" appearance="outline">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [(ngModel)]="local_data.releaseDate"  [matDatepickerFilter]="myFilter " [matDatepicker]="picker">
+            <mat-hint>MM-DD-YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </p>
       </div>
       <ng-template #deleteTemplate>
         <p class="confirmation-text">

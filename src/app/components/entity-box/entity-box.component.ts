@@ -52,7 +52,6 @@ export class EntityBoxComponent implements OnInit{
     const selectedInstruments: number[] = this.instruments.value as number[];
     const selectedTypes: number[] = this.entityTypes.value as number[];
     
-    console.log('Just pour Voir les data :' + selectedInstruments);
     this.dialogRef.close({
       event: this.action,
       data: this.local_data,
