@@ -116,7 +116,7 @@ export class SongComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result.event === 'Add') {
-        this.addRowData(result.navbarData, 
+        this.addRowData(result.data, 
                         result.category, 
                         result.album, 
                         result.instruments, 

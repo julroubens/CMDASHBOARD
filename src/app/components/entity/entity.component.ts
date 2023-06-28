@@ -58,7 +58,7 @@ export class EntityComponent implements OnInit {
       if (result.event === 'Add') {
         this.addRowData(result.data, result.instruments, result.entityType);
       } else if (result.event === 'Update') {
-        this.updateRowData(result.data);
+        this.updateRowData(result.data, result.instruments, result.entityType);
       } else if (result.event === 'Delete') {
         this.deleteRowData(result.data);
       }
@@ -106,8 +106,30 @@ export class EntityComponent implements OnInit {
     );
   }
 
-  updateRowData(row_obj: Entity) {
-    this.entityService.update(row_obj.id, row_obj).subscribe(
+  updateRowData(row_obj: Entity, selectedInstruments: any, selectedTypes: any) {
+    var d = new Date();
+    if (selectedInstruments.value && selectedInstruments.value.length > 0) {
+      selectedInstruments = selectedInstruments.value.map(
+        (instrument: Instrument
+        ) => instrument.id
+      );
+    }
+    if (selectedTypes.value && selectedTypes.value.length > 0) {
+      selectedTypes = selectedTypes.value.map(
+        (selectedType: EntityType
+        ) => selectedType.id
+      );
+    }
+
+    const newEntity: Entity = {
+      id: d.getTime(), // number | null
+      name: row_obj.name,
+      status: true,
+      instrument: selectedInstruments,
+      type: selectedTypes,
+    };
+    
+    this.entityService.update(row_obj.id, newEntity).subscribe(
       (response) => {
         const dataArray = this.dataSource.data;
         const updatedArray = dataArray.map((value) => {
