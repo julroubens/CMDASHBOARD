@@ -20,9 +20,12 @@ export class EntityService {
     return this.httpClient.get<Entity>(`${this.baseUrl + 'entitys/'}${id}`);
   }
 
-  create(entity: Entity, selectedInstruments: number[]): Observable<Entity> {
-    const entityWithInstruments: any = { ...entity };
-    entityWithInstruments.instrument = selectedInstruments;
+  // create(entity: Entity, selectedInstruments: number[]): Observable<Entity> {
+  //   const entityWithInstruments: any = { ...entity };
+  //   entityWithInstruments.instrument = selectedInstruments;
+  //   return this.httpClient.post<Entity>(this.baseUrl + 'entitys', entity);
+  // }
+  create(entity: Entity): Observable<Entity> {
     return this.httpClient.post<Entity>(this.baseUrl + 'entitys', entity);
   }
 

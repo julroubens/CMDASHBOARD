@@ -89,15 +89,15 @@ export class EntityComponent implements OnInit {
       id: d.getTime(),
       name: row_obj.name,
       status: true,
-      instruments: [],
-      types: selectedTypes,
+      instruments: [10041,10043,10044],
+      types: [10034,10035,10036],
     };
 
    /*  console.log('All item from Tog3', selectedTypes);
 
     console.log('All item from Tog', selectedInstruments); */
 
-    this.entityService.create(newEntity, selectedInstrument).subscribe(
+    this.entityService.create(newEntity).subscribe(
       (response) => {
         // console.log('New item added:', response);
         // console.log('All item from Tog3', selectedTypes);
