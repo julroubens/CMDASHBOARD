@@ -116,11 +116,11 @@ export class SongComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result.event === 'Add') {
-        this.addRowData(result.navbarData, 
+        this.addRowData(result.data, 
                         result.category, 
                         result.album, 
                         result.instruments, 
-                        result.entityType);
+                        result.entitys);
       } else if (result.event === 'Update') {
         this.updateRowData(result.data);
       } else if (result.event === 'Delete') {
@@ -129,33 +129,36 @@ export class SongComponent implements OnInit, AfterViewInit {
     });
   }
 
-  addRowData(row_obj: any, category: any, album: any, selectedInstruments: any, selectedTypes: any) {
+  addRowData(row_obj: any, category: any, album: any, selectedInstruments: Array<number>, selectedTypes: Array<number>) {
     var d = new Date();
-    console.log("CATEGORY SELECTED : "+category + " ALBUM SELECTED :"+ album);
 
-    // let selectedInstrument: number[] = [];
-    // if (selectedInstruments.value && selectedInstruments.value.length > 0) {
-    //   selectedInstrument = selectedInstruments.value.map(
-    //     (instrument: Instrument) => instrument.id
-    //   );
-    // }
+    function padTo2Digits(num: number) {
+      return num.toString().padStart(2, '0');
+    }
 
-    // const selectedInstruments = selectedInstruments.filter((instrument: { id: any; }) => this.selectedInstrumentIds.includes(instrument.id));
-    // const selectedTypes = selectedTypes.filter((type: { id: any; }) => this.selectedTypeIds.includes(type.id));
+    var releaseDate = [ row_obj.releaseDate.getFullYear(), padTo2Digits(row_obj.releaseDate.getMonth() + 1), padTo2Digits(row_obj.releaseDate.getDate()) ].join('-');
+
+    // console.log('row_obj -> '+ JSON.stringify(row_obj));
+    console.log('releaseDate -> '+ releaseDate);
+    /* console.log('category -> '+ category);
+    console.log('album -> '+ album);
+    console.log('selectedInstruments -> '+ selectedInstruments);
+    console.log('selectedTypes -> '+ selectedTypes); */
 
     const newData = [...this.dataSource.data];
     const newSong: Song = {
       id: d.getTime(),
       title: row_obj.title,
       artist: row_obj.artist,
-      releaseDate: row_obj.releaseDate,
+      releaseDate: releaseDate,
       status: true,
-      instruments: [],
-      album: 0,
-      entity: [],
-      category: 0
+      instrument: selectedInstruments,
+      album: album,
+      intity: selectedTypes,
+      category: category
     };
 
+    console.log('newSong -> '+ JSON.stringify(newSong));
 
     this.songService.create(newSong).subscribe(
       (response) => {

@@ -4,8 +4,8 @@ export interface Song {
     artist: string;
     releaseDate: string;
     status: boolean;
-    instruments: number[];
+    instrument: number[];
     album: number;
-    entity: number[];
+    intity: number[];
     category: number;
 }
