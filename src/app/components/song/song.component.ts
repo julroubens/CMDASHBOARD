@@ -138,13 +138,6 @@ export class SongComponent implements OnInit, AfterViewInit {
 
     var releaseDate = [ row_obj.releaseDate.getFullYear(), padTo2Digits(row_obj.releaseDate.getMonth() + 1), padTo2Digits(row_obj.releaseDate.getDate()) ].join('-');
 
-    // console.log('row_obj -> '+ JSON.stringify(row_obj));
-    console.log('releaseDate -> '+ releaseDate);
-    /* console.log('category -> '+ category);
-    console.log('album -> '+ album);
-    console.log('selectedInstruments -> '+ selectedInstruments);
-    console.log('selectedTypes -> '+ selectedTypes); */
-
     const newData = [...this.dataSource.data];
     const newSong: Song = {
       id: d.getTime(),
@@ -157,8 +150,6 @@ export class SongComponent implements OnInit, AfterViewInit {
       intity: selectedTypes,
       category: category
     };
-
-    console.log('newSong -> '+ JSON.stringify(newSong));
 
     this.songService.create(newSong).subscribe(
       (response) => {
