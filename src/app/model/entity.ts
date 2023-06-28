@@ -1,7 +1,7 @@
 export interface Entity {
-  id: number;
+  id: number;  // number | null
   name: string;
   status: boolean;
-  instruments: number[];
-  types: number[];
+  instrument: Array<number>;
+  type: Array<number>;
 }

@@ -6,6 +6,7 @@ import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {EntityService} from "../../services/entity.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatPaginator} from "@angular/material/paginator";
+import { EntityType } from 'src/app/model/entity-type';
 
 @Component({
   selector: 'app-entity',
@@ -64,54 +65,31 @@ export class EntityComponent implements OnInit {
     });
   }
 
-  addRowData(row_obj: any, selectedInstruments: any, selectedType: any) {
+  addRowData(row_obj: any, selectedInstruments: any, selectedTypes: any) {
     var d = new Date();
-
-    let selectedInstrument: number[] = [];
     if (selectedInstruments.value && selectedInstruments.value.length > 0) {
       selectedInstruments = selectedInstruments.value.map(
         (instrument: Instrument
         ) => instrument.id
       );
     }
-
-    const selectedTypes: number[] = Array.isArray(selectedType.value)
-    ? selectedType.value
-    : selectedType.value ? [selectedType.value] : [];
-
-
-    // console.log("SELECTED INSTRUMENT ID :"+selectedInstruments);
-    // const newData = [...this.dataSource.data];
-    // var jsonTypes = JSON.stringify(selectedTypes);
-    // var jsonInstru = JSON.stringify(selectedInstrument);
+    if (selectedTypes.value && selectedTypes.value.length > 0) {
+      selectedTypes = selectedTypes.value.map(
+        (selectedType: EntityType
+        ) => selectedType.id
+      );
+    }
 
     const newEntity: Entity = {
-      id: d.getTime(),
+      id: d.getTime(), // number | null
       name: row_obj.name,
       status: true,
-      instruments: [],
-      types: selectedTypes,
+      instrument: selectedInstruments,
+      type: selectedTypes,
     };
 
-   /*  console.log('All item from Tog3', selectedTypes);
-
-    console.log('All item from Tog', selectedInstruments); */
-
-    this.entityService.create(newEntity, selectedInstrument).subscribe(
+    this.entityService.create(newEntity).subscribe(
       (response) => {
-        // console.log('New item added:', response);
-        // console.log('All item from Tog3', selectedTypes);
-        // console.log('All item from Tog', selectedInstruments);
-
-        /* selectedTypes.forEach(type => {
-          //Do thing here
-          
-        });
-        selectedInstruments.forEach(instru => {
-          //Do thing here
-          
-        }); */
-
         this.entityService.getAll().subscribe(
           (newData) => {
             this.dataSource.data = newData;
