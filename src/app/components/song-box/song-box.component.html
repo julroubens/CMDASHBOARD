@@ -69,7 +69,7 @@
                   {{ instrumentsFormControl.value?.length === 2 ? 'other' : 'others' }})
                 </span>
               </mat-select-trigger>
-              <mat-option
+              <mat-option 
                 *ngFor="let instrument of instrumentList"
                 [value]="instrument.id"
               >{{ instrument.name }}</mat-option>

@@ -122,28 +122,35 @@ export class SongComponent implements OnInit, AfterViewInit {
                         result.instruments, 
                         result.entitys);
       } else if (result.event === 'Update') {
-        this.updateRowData(result.data);
+        this.updateRowData(result.data, 
+                          result.category, 
+                          result.album, 
+                          result.instruments, 
+                          result.entitys );
       } else if (result.event === 'Delete') {
         this.deleteRowData(result.data);
       }
     });
   }
 
-  addRowData(row_obj: any, category: any, album: any, selectedInstruments: Array<number>, selectedTypes: Array<number>) {
+  addRowData(row_obj: Song, category: any, album: any, selectedInstruments: Array<number>, selectedTypes: Array<number>) {
     var d = new Date();
 
     function padTo2Digits(num: number) {
       return num.toString().padStart(2, '0');
     }
 
-    var releaseDate = [ row_obj.releaseDate.getFullYear(), padTo2Digits(row_obj.releaseDate.getMonth() + 1), padTo2Digits(row_obj.releaseDate.getDate()) ].join('-');
+    // var releaseDate = [ row_obj.releaseDate.getFullYear(), 
+    //                     padTo2Digits(row_obj.releaseDate.getMonth() + 1), 
+    //                     padTo2Digits(row_obj.releaseDate.getDate()) 
+    //                   ].join('-');
 
     const newData = [...this.dataSource.data];
     const newSong: Song = {
       id: d.getTime(),
       title: row_obj.title,
       artist: row_obj.artist,
-      releaseDate: releaseDate,
+      releaseDate: row_obj.releaseDate,
       status: true,
       instrument: selectedInstruments,
       album: album,
@@ -170,8 +177,36 @@ export class SongComponent implements OnInit, AfterViewInit {
     );
   }
 
-  updateRowData(row_obj: Song) {
-    this.songService.update(row_obj.id, row_obj).subscribe(
+  updateRowData(row_obj: any, 
+                category: any, 
+                album: any, 
+                selectedInstruments: Array<number>, 
+                selectedTypes: Array<number>) {
+    var d = new Date();
+
+    function padTo2Digits(num: number) {
+      return num.toString().padStart(2, '0');
+    }
+
+    var releaseDate = [ row_obj.releaseDate.getFullYear(), 
+                        padTo2Digits(row_obj.releaseDate.getMonth() + 1), 
+                        padTo2Digits(row_obj.releaseDate.getDate()) 
+                      ].join('-');
+
+    const newData = [...this.dataSource.data];
+    const updateSong: Song = {
+      id: d.getTime(),
+      title: row_obj.title,
+      artist: row_obj.artist,
+      releaseDate: releaseDate,
+      status: true,
+      instrument: selectedInstruments,
+      album: album,
+      intity: selectedTypes,
+      category: category
+    };
+
+    this.songService.update(row_obj.id, updateSong).subscribe(
       (response) => {
         const dataArray = this.dataSource.data;
         const updatedArray = dataArray.map((value) => {

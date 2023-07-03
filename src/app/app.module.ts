@@ -40,6 +40,7 @@ import { CategoryComponent } from './components/category/category.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SongShowComponent } from './components/song-show/song-show.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { SongShowComponent } from './components/song-show/song-show.component';
     MatDividerModule,
     MatPaginatorModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCardModule
   ],
   providers: [
     {

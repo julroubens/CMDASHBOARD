@@ -67,13 +67,21 @@ export class AlbumComponent implements OnInit, AfterViewInit {
 
   addRowData(row_obj: any) {
     var d = new Date();
+    function padTo2Digits(num: number) {
+      return num.toString().padStart(2, '0');
+    }
+
+    var releaseDate = [ row_obj.releaseDate.getFullYear(), 
+      padTo2Digits(row_obj.releaseDate.getMonth() + 1), 
+      padTo2Digits(row_obj.releaseDate.getDate()) 
+    ].join('-');
 
     const newData = [...this.dataSource.data];
     const newAlbum: Album = {
       id: d.getTime(),
       groupName: row_obj.groupName,
       title: row_obj.title,
-      releaseDate: row_obj.releaseDate,
+      releaseDate: releaseDate,
       status: true
     };
 
@@ -97,6 +105,8 @@ export class AlbumComponent implements OnInit, AfterViewInit {
   }
 
   updateRowData(row_obj: Album) {
+      
+
     this.albumService.update(row_obj.id, row_obj).subscribe(
       (response) => {
         const dataArray = this.dataSource.data;
