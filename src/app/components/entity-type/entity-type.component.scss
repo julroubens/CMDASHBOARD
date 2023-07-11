@@ -4,7 +4,7 @@
   background: #f1f5f9;
   &__box {
     min-height: 60px;
-    background: #1e293b;
+    background: #010D3A;
     margin: 0 -1rem;
     font-size: 36px;
   }
@@ -36,8 +36,28 @@
   left: 0;
   width: 100%;
 }
-
+.addPLus-right{
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 table {
   width: 100% !important;
 }
 
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #04CCF8; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #13207a; 
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background: #010D3A;
+}

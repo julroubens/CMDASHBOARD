@@ -1,14 +1,12 @@
 <div class="container-fluid page">
-    <div class="d-flex page__box p-3 mt-2">Albums</div>
+    <div class="d-flex page__box p-3 mt-2 addPLus-right">Albums
+      <button mat-icon-button class="icon-button" matTooltip="Add new song" (click)="openDialog('Add', { action: 'Add', event: 'Add' })">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
     <div class="page__content shadow p-3 position-relative">
       <div class="page__content-data position-absolute">
         <div id="mat-elev-z8" class="mat-elevation-z8">
-          <button
-            mat-button
-            (click)="openDialog('Add', { action: 'Add', event: 'Add' })"
-            mat-flat-button
-            color="primary"> Add new Album
-          </button>
           <table
             mat-table
             [dataSource]="dataSource"

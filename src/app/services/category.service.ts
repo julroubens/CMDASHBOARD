@@ -8,7 +8,7 @@ import { Category } from '../model/category';
   providedIn: 'root'
 })
 export class CategoryService {
-  baseUrl = BaseUrl.baseUrl;
+  baseUrl = BaseUrl.baseUrl; 
 
   constructor(private httpClient: HttpClient) {}
 

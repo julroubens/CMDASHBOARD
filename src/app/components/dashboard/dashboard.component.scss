@@ -1,44 +1,64 @@
 .page {
-    color: white;
-    padding: 0 1rem;
-    background: #f1f5f9;
-    &__box {
-      min-height: 60px;
-      background: #1e293b;
-      margin: 0 -1rem;
-      font-size: 36px;
+  color: white;
+  padding: 0 1rem;
+  background: #f1f5f9;
+  &__box {
+    min-height: 60px;
+    background: #010D3A; 
+    margin: 0 -1rem;
+    font-size: 36px;
+  }
+  &__content {
+    min-height: calc(100vh - 178px);
+    border-radius: 10px;
+    margin-top: -1rem;
+    background: white;
+    color: black;
+    font-size: 2rem;
+    &-data {
+      //top: 50%;
+      //left: 50%;
+      //transform: translate(-50%, -50%);
     }
-    &__content {
-      min-height: calc(100vh - 178px);
-      border-radius: 10px;
-      margin-top: -1rem;
-      background: white;
-      color: black;
-      font-size: 2rem;
-      &-data {
-        //top: 50%;
-        //left: 50%;
-        //transform: translate(-50%, -50%);
-      }
-    }
   }
-  
-  #mat-elev-z8.mat-elevation-z8{
-    padding-left: 10px;
-    height: calc(100vh - 150px);
-    overflow-y: scroll;
-    padding-bottom: 10px;
-  }
-  
-  #mat-elev-z8 .mat-mdc-paginator{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-  }
-  
-  table {
-    width: 100% !important;
-  }
-  
-  
+}
+
+#mat-elev-z8.mat-elevation-z8{
+  padding-left: 10px;
+  height: calc(100vh - 150px);
+  overflow-y: scroll;
+  padding-bottom: 10px;
+}
+
+#mat-elev-z8 .mat-mdc-paginator{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.addPLus-right{
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+table {
+  width: 100% !important;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #04CCF8; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #13207a; 
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background: #010D3A;
+}
+

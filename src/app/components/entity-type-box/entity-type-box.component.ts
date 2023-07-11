@@ -9,7 +9,7 @@ import {EntityType} from "../../model/entity-type";
 })
 export class EntityTypeBoxComponent implements OnInit {
 
-  action: string;
+  action: string; 
   local_data: any;
 
   constructor(
