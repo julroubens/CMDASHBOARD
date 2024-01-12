@@ -6,7 +6,7 @@
   </div>
   <div class="page__content shadow p-3 position-relative">
     <div class="page__content-data position-absolute">
-      <div id="mat-elev-z8" class="mat-elevation-z8">
+      <div id="mat-elev-z8" class="mat-elevation-z8" tabindex="0">
         <table
           mat-table
           [dataSource]="dataSource"
@@ -28,7 +28,7 @@
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns; sticky: true"></tr>
         </table>
         <mat-paginator
           [pageSizeOptions]="[10, 20, 30]"

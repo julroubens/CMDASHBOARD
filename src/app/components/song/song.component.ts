@@ -5,12 +5,10 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Song } from 'src/app/model/song';
 import { SongService } from 'src/app/services/song.service';
 import { SongBoxComponent } from '../song-box/song-box.component';
-import { navbarData } from './../sidenav/nav-data';
 import { AlbumService } from 'src/app/services/album.service';
 import { Observable, combineLatest, map, of } from 'rxjs';
 import { Album } from 'src/app/model/album';
 import { CategoryService } from 'src/app/services/category.service';
-import { Instrument } from 'src/app/model/instrument';
 
 
 @Component({
@@ -133,7 +131,11 @@ export class SongComponent implements OnInit, AfterViewInit {
     });
   }
 
-  addRowData(row_obj: Song, category: any, album: any, selectedInstruments: Array<number>, selectedTypes: Array<number>) {
+  addRowData(row_obj: Song, 
+              category: any, 
+              album: any, 
+              selectedInstruments: Array<number>, 
+              selectedTypes: Array<number>) {
     var d = new Date();
 
     function padTo2Digits(num: number) {

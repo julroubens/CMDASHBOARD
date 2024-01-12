@@ -16,7 +16,7 @@ const routes: Routes = [
     path: 'song',
     children:[
       { path: '', component: SongComponent },
-      { path: ':id', component: SongShowComponent },
+      { path: ':data', component: SongShowComponent },
   ]},
   { path: 'instrument', component: InstrumentComponent },
   { path: 'entity', component: EntityComponent },

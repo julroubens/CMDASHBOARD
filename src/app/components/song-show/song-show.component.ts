@@ -17,20 +17,27 @@ export class SongShowComponent implements OnInit {
 
   constructor(private activeRoute: ActivatedRoute,
               private songService: SongService
-    ) { }
+    ) {
+      this.subscription = this.activeRoute.params.subscribe(data =>{
+        this.songId = data['id'];
+      });
+    }
 
   ngOnInit(): void {
-    this.subscription = this.activeRoute.params.subscribe(data =>{
-      this.songId = data['id'];
-      this.songService.getById(this.songId).pipe(
-        map((song: Song) => this.song = song)
-      ).subscribe();
-    });
-    
+    this.getSongById(this.songId);
   }
 
-  getSongById(songId: number)
-  {
+  getSongById(songId: number){
+    this.songService.getById(this.songId).pipe(
+      map((song: Song)=>{
+        if (song) {
+          console.log("@--- song", song);
+          this.song = song
+        }else{
+          console.log("@-- no song data !");
+        }
+      })
+    ).subscribe();
   }
 
 }
